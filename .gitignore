@@ -10,3 +10,4 @@
 /Dockerfile
 *.swp
 /.trash-cache
+/release.log

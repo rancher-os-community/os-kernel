@@ -18,8 +18,8 @@ for i in $BASE/[1-9]*; do
         ${i}/prebuild.sh
     fi
 
-    if dapper -d --build -f ${i}/Dockerfile -- -t rancher/${name} --build-arg KERNEL_VERSION ${i}; then
-        docker tag rancher/${name} ${tag}
+    if dapper -d --build -f ${i}/Dockerfile -- -t rancheroscommunity/${name} --build-arg KERNEL_VERSION ${i}; then
+        docker tag rancheroscommunity/${name} ${tag}
         echo ${tag} >> dist/images
     elif [ "$?" != "42" ]; then
         exit 1
