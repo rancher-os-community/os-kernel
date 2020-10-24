@@ -1,7 +1,8 @@
 diff --git a/init/main.c b/init/main.c
+index e880b4e..112d88c 100644
 --- a/init/main.c
 +++ b/init/main.c
-@@ -573,9 +573,12 @@ asmlinkage __visible void __init start_kernel(void)
+@@ -874,9 +874,12 @@ asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
  				  static_command_line, __start___param,
  				  __stop___param - __start___param,
  				  -1, -1, NULL, &unknown_bootoption);
@@ -12,6 +13,6 @@ diff --git a/init/main.c b/init/main.c
  		parse_args("Setting init args", after_dashes, NULL, 0, -1, -1,
  			   NULL, set_init_arg);
 +	}
- 
- 	jump_label_init();
- 
+ 	if (extra_init_args)
+ 		parse_args("Setting extra init args", extra_init_args,
+ 			   NULL, 0, -1, -1, NULL, set_init_arg);

@@ -10,3 +10,6 @@
 /Dockerfile
 *.swp
 /.trash-cache
+/release.log
+/Dockerfile.dapper*
+!/Dockerfile.dapper

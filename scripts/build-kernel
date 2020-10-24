@@ -6,6 +6,14 @@ cd $(dirname $0)/..
 source scripts/build-common
 source scripts/version
 
+if [ "${KERNEL_ARCH}" == "arm64" ]; then
+    export CROSS_COMPILE=aarch64-linux-gnu-
+fi
+
+if [ "${KERNEL_ARCH}" == "mips" ]; then
+    export CROSS_COMPILE=mips64el-linux-gnuabi64-
+fi
+
 export CCACHE_DIR="${HOME}/.kernel-ccache"
 export CC="ccache gcc"
 export PATH="/usr/lib/ccache:$PATH"
@@ -15,7 +23,7 @@ MODULE_LIST=$(readlink -f modules/${KERNEL_ARCH}/modules.list)
 MODULE_EXTRA_LIST=$(readlink -f modules/${KERNEL_ARCH}/modules-extra.list)
 
 if [ -e "/source/dist/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" ]; then
-    echo "skipping kernel build - found linux-${KERNEL_VERSION}-rancher-${KERNEL_ARCH}.tar.gz in ./dist/kernel/"
+    echo "skipping kernel build - found linux-${KERNEL_VERSION}-burmilla-${KERNEL_ARCH}.tar.gz in ./dist/kernel/"
 else
     cd ${BUILD}/${DIR}
     make ARCH=${KERNEL_ARCH} oldconfig

@@ -1,7 +1,7 @@
 FROM gcc:8.3.0
 # FROM arm64=arm64v8/gcc:8.3.0
 
-RUN apt-get update \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && apt-get install -y \
         ccache \
         vim \
@@ -12,6 +12,9 @@ RUN apt-get update \
         libelf-dev \
         bison \
         flex \
+        u-boot-tools \
+        gcc-aarch64-linux-gnu \
+        gcc-mips64el-linux-gnuabi64 \
     && rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install dapper
@@ -26,6 +29,8 @@ ENV LANG en_US.UTF-8
 
 ARG DAPPER_HOST_ARCH
 ENV HOST_ARCH=${DAPPER_HOST_ARCH} ARCH=${DAPPER_HOST_ARCH}
+ARG OVERRIDE_KERNEL_ARCH
+ENV OVERRIDE_KERNEL_ARCH=${OVERRIDE_KERNEL_ARCH}
 
 ENV DAPPER_DOCKER_SOCKET true
 ENV DAPPER_SOURCE /source
@@ -35,23 +40,26 @@ ENV SHELL /bin/bash
 ENV HOME ${DAPPER_SOURCE}
 WORKDIR ${DAPPER_SOURCE}
 
-ARG OS_REPO=rancher
+ARG OS_REPO=burmilla
 ARG KERNEL_TAG
 ARG KERNEL_VERSION=${KERNEL_TAG}-${OS_REPO}
 
-ARG FIRMWARE_TAG=20190514
+ARG FIRMWARE_TAG=20201022
+ARG MENUCONFIG
 
 ENV OS_REPO=${OS_REPO} \
     DOCKER_URL=DOCKER_URL_${ARCH} \
     DOCKER_URL_amd64=https://get.docker.com/builds/Linux/x86_64/docker-1.10.3 \
-    DOCKER_URL_arm64=https://github.com/rancher/docker/releases/download/v1.10.3-ros1/docker-1.10.3_arm64 \
+    DOCKER_URL_arm64=https://github.com/burmilla/docker/releases/download/v1.10.3-ros1/docker-1.10.3_arm64 \
+    DOCKER_URL_mips=https://get.docker.com/builds/Linux/x86_64/docker-1.10.3 \
     KERNEL_TAG=${KERNEL_TAG} \
     KERNEL_VERSION=${KERNEL_VERSION} \
-    KERNEL_URL=https://cdn.kernel.org/pub/linux/kernel/v4.x/ \
+    KERNEL_URL=https://cdn.kernel.org/pub/linux/kernel/v5.x/ \
     KERNEL_TAR=linux-${KERNEL_TAG}.tar.xz \
     KERNEL_SIGN=linux-${KERNEL_TAG}.tar.sign \
     FIRMWARE_TAG=${FIRMWARE_TAG} \
-    KERNEL_ARCH=x86
+    KERNEL_ARCH=x86 \
+    MENUCONFIG=${MENUCONFIG}
 # for rc testing
 #ENV KERNEL_URL=https://cdn.kernel.org/pub/linux/kernel/v4.x/testing/linux-${KERNEL_TAG}.tar.xz
 
