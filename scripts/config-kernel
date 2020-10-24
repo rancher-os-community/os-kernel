@@ -19,6 +19,11 @@ if [ -e "/source/dist/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" ]; t
     echo "skipping kernel build - found linux-${KERNEL_VERSION}-rancher-${KERNEL_ARCH}.tar.gz in ./dist/kernel/"
 else
     cd ${BUILD}/${DIR}
-    make ARCH=${KERNEL_ARCH} oldconfig
+    if [ "${MENUCONFIG}" == "true" ]; then
+        cp ${CONFIG}/${KERNEL_ARCH}/kernel-config .config
+        make ARCH=${KERNEL_ARCH} menuconfig
+    else
+        make ARCH=${KERNEL_ARCH} oldconfig
+    fi
     cp .config ${DIST}/kernel/config
 fi

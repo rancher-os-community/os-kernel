@@ -1,32 +1,22 @@
+# Kernel version 4.14.x
+This branch is used to provide Rancher OS 1.5.x compatible 4.14.x version kernels.
 
+On this branch we do NOT provide new features but instead of keep changes on minimal and just bump kernel patch versions.
 
-# Build kernel release archives for use in building RancherOS
-
-
-To build the tgz's and the kernel header & extras images, run:
-
+## How to contribute
+- Fork this repository and create new branch based on v4.14.x branch.
+- Check from [kernel.org](https://www.kernel.org/) that what is latest 4.14.x kernel version.
+- Run kernel configuration with commands (update version to KERNEL_TAG):
+```bash
+KERNEL_TAG=4.14.? MENUCONFIG=true OVERRIDE_KERNEL_ARCH=x86 make kernel-config
 ```
-git checkout tags/v4.14.98-rancher -b v4.14.98-rancher
-
-KERNEL_TAG=4.14.98 make release
+- Save changes over .config
+- Copy new config version over to one which is stored to GIT:
+```bash
+cp dist/kernel/config config/x86/kernel-config
 ```
-
-You should build it on an arm64 host if you want to get an arm64 kernel.
-
-and if you're uploading them, set your GITHUB_TOKEN and login to docker hub, then run
-
-(this requires https://github.com/aktau/github-release to be installed in your path)
-
-`dist/publish.sh`
-
-## packaging your own kernel builds
-
-Assuming you have some kernel source you have built in `/usr/src/linux-4.8`, you can
-package up the result by running 
-
+- Update modules/x86/modules.list / modules-extra.list if new modules was found
+- Test build kernel with command:
+```bash
+KERNEL_TAG=4.14.? make release
 ```
-./scripts/package-kernel --srcdir /usr/src/linux-4.8
-```
-
-You may need to adjust the expected module list files.
-

@@ -26,3 +26,7 @@ case $ARCH in
         KERNEL_ARCH=${ARCH}
         ;;
 esac
+
+if [ -n "${OVERRIDE_KERNEL_ARCH}" ]; then
+    KERNEL_ARCH=${OVERRIDE_KERNEL_ARCH}
+fi
