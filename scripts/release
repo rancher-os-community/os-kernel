@@ -23,8 +23,10 @@ echo
 echo "to publish kernel files and container images, run dist/publish.sh"
 
 echo "#!/bin/sh"> dist/publish.sh
-echo "github-release release --user rancher-os-community --repo os-kernel --tag v${KERNEL_VERSION} --pre-release" >> dist/publish.sh
-echo "github-release upload  --user rancher-os-community --repo os-kernel --tag v${KERNEL_VERSION} --file ./dist/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}-src.tgz --name linux-${KERNEL_VERSION}-${KERNEL_ARCH}-src.tgz" >> dist/publish.sh
+
+if [ "${KERNEL_ARCH}" == "x86" ]; then
+    echo "github-release release --user rancher-os-community --repo os-kernel --tag v${KERNEL_VERSION} --pre-release" >> dist/publish.sh
+fi
 echo "github-release upload  --user rancher-os-community --repo os-kernel --tag v${KERNEL_VERSION} --file ./dist/kernel/build-linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz --name build-linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" >> dist/publish.sh
 echo "github-release upload  --user rancher-os-community --repo os-kernel --tag v${KERNEL_VERSION} --file ./dist/kernel/extra-linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz --name extra-linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" >> dist/publish.sh
 echo "github-release upload  --user rancher-os-community --repo os-kernel --tag v${KERNEL_VERSION} --file ./dist/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz --name linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" >> dist/publish.sh

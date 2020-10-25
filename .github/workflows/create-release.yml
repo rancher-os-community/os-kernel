@@ -7,6 +7,10 @@ on:
         description: 'Kernel version'
         default: ''
         required: true
+      arch:
+        description: 'Kernel architecture'
+        default: 'x86'
+        required: true
 
 jobs:
   build:
@@ -23,7 +27,7 @@ jobs:
       run: |
         git tag v${{ github.event.inputs.version }}-rancheroscommunity
         git checkout tags/v${{ github.event.inputs.version }}-rancheroscommunity -b v${{ github.event.inputs.version }}-rancheroscommunity
-        KERNEL_TAG=${{ github.event.inputs.version }} make release
+        KERNEL_TAG=${{ github.event.inputs.version }} OVERRIDE_KERNEL_ARCH=${{ github.event.inputs.arch }} make release
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
