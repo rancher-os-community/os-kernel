@@ -21,8 +21,6 @@ kernel/crypto/af_alg.ko
 kernel/crypto/algif_hash.ko
 kernel/crypto/algif_skcipher.ko
 kernel/crypto/ansi_cprng.ko
-kernel/crypto/anubis.ko
-kernel/crypto/arc4.ko
 kernel/crypto/async_tx/async_memcpy.ko
 kernel/crypto/async_tx/async_pq.ko
 kernel/crypto/async_tx/async_raid6_recov.ko
@@ -32,16 +30,9 @@ kernel/crypto/camellia_generic.ko
 kernel/crypto/ccm.ko
 kernel/crypto/cmac.ko
 kernel/crypto/crypto_user.ko
-kernel/crypto/ctr.ko
 kernel/crypto/des_generic.ko
-kernel/crypto/drbg.ko
 kernel/crypto/echainiv.ko
 kernel/crypto/fcrypt.ko
-kernel/crypto/gcm.ko
-kernel/crypto/gf128mul.ko
-kernel/crypto/ghash-generic.ko
-kernel/crypto/jitterentropy_rng.ko
-kernel/crypto/khazad.ko
 kernel/crypto/lrw.ko
 kernel/crypto/lz4hc.ko
 kernel/crypto/lz4.ko
@@ -54,10 +45,7 @@ kernel/crypto/rmd160.ko
 kernel/crypto/rmd256.ko
 kernel/crypto/rmd320.ko
 kernel/crypto/salsa20_generic.ko
-kernel/crypto/seed.ko
-kernel/crypto/seqiv.ko
 kernel/crypto/tcrypt.ko
-kernel/crypto/tea.ko
 kernel/crypto/tgr192.ko
 kernel/crypto/twofish_generic.ko
 kernel/crypto/vmac.ko
@@ -246,7 +234,6 @@ kernel/drivers/net/macvlan.ko
 kernel/drivers/net/macvtap.ko
 kernel/drivers/net/mdio/mdio-thunder.ko
 kernel/drivers/net/mdio/mdio-gpio.ko
-kernel/drivers/net/mdio/mdio-bitbang.ko
 kernel/drivers/net/mdio/mdio-cavium.ko
 kernel/drivers/net/phy/amd.ko
 kernel/drivers/net/phy/aquantia.ko
@@ -306,8 +293,6 @@ kernel/drivers/usb/serial/cp210x.ko
 kernel/drivers/usb/serial/ftdi_sio.ko
 kernel/drivers/usb/serial/option.ko
 kernel/drivers/usb/storage/uas.ko
-kernel/drivers/vfio/pci/vfio-pci.ko
-kernel/drivers/vfio/vfio_iommu_type1.ko
 kernel/drivers/vhost/vhost.ko
 kernel/drivers/vhost/vhost_net.ko
 kernel/drivers/video/fbdev/hyperv_fb.ko
